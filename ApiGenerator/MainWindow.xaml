@@ -104,8 +104,8 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
-                    <Button x:Name="SetAPIGenarate" Content="Genarate Set Api" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetprocedureGenarate_Click" Margin="10"/>
-                    <Button x:Name="GetAPIGenarate" Content="Genarate Get Api" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetprocedureGenarate_Click" Margin="10"/>
+                    <Button x:Name="SetAPIGenarate" Content="Genarate Set Api" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetAPIGenarate_Click" Margin="10"/>
+                    <Button x:Name="GetAPIGenarate" Content="Genarate Get Api" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetAPIGenarate_Click" Margin="10"/>
                     <TextBox x:Name="APITextBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"/>
                 </Grid>
             </Grid>

@@ -154,5 +154,32 @@ namespace ApiGenerator
             }
             classTxbx.Text = thisTxbxString;
         }
+
+        private void SetAPIGenarate_Click(object sender, RoutedEventArgs e)
+        {
+            string thisTxbxString = "[AcceptVerbs(\"GET\", \"POST\")]\n public Response set" + clsName.Text + "(" + clsName.Text + " obj) \n {\n Response response = new Response(); \n try \n { \n Connection();\n  SqlCommand cmd = new SqlCommand(\"set"+ clsName.Text + "\",conn);\n cmd.CommandType = System.Data.CommandType.StoredProcedure;\n";
+            
+            for (int i = 0; i < tableItemVariableList.Count; i++)
+            {
+                thisTxbxString += " cmd.Parameters.AddWithValue(\"@" + tableItemList[i] + "\", obj." + tableItemList[i] + ");\n";
+            }
+            thisTxbxString += " conn.Open();\nint i = cmd.ExecuteNonQuery();\n" +
+                "if (i != 0)\n" +
+                "{" +
+                "\n" +
+                " response.Massage = \"Succesfull!\";\n" +
+                "response.Status = 0;\n" +
+                "}\n" +
+                "else\n" +
+                "{\n " +
+                "response.Massage = \"Unsuccesfull!\";\nresponse.Status = 1;\n}\n}\ncatch(Exception ex)\n{\nresponse.Massage = ex.Message;\nresponse.Status = 0;\n}\nreturn response;\n}\n";
+            APITextBox.Text = thisTxbxString;
+        }
+
+        private void GetAPIGenarate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
+ 
