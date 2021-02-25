@@ -144,5 +144,15 @@ namespace ApiGenerator
             string thisTxbxString = "create procedure get"+ clsName.Text +"\n as begin \n Select * from " + clsName.Text + "\n end";
             procedureTextBox.Text = thisTxbxString;
         }
+
+        private void classGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            string thisTxbxString = "";
+            for (int i = 0; i < tableItemVariableList.Count; i++)
+            {
+                thisTxbxString += "public " + tableItemVariableList[i] + " " + tableItemList[i] + " { get ; set ;} \n";
+            }
+            classTxbx.Text = thisTxbxString;
+        }
     }
 }

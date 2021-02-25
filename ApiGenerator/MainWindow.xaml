@@ -86,6 +86,29 @@
                     <TextBox x:Name="procedureTextBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"/>
                 </Grid>
             </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Background="#F1F1F1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="classGenerate" Content="Genarate Class" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="classGenerate_Click" Background="#F3F3F3" Foreground="Black"/>
+                    <TextBox x:Name="classTxbx" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"/>
+                </Grid>
+                <Grid Grid.Column="1" Background="#90E4F867">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="SetAPIGenarate" Content="Genarate Set Api" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetprocedureGenarate_Click" Margin="10"/>
+                    <Button x:Name="GetAPIGenarate" Content="Genarate Get Api" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetprocedureGenarate_Click" Margin="10"/>
+                    <TextBox x:Name="APITextBox" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"/>
+                </Grid>
+            </Grid>
             
         </Grid>
     </Grid>
