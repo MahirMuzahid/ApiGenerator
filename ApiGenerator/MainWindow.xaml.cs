@@ -23,10 +23,17 @@ namespace ApiGenerator
         public List<string> tableItemList = new List<string>();
         public List<string> tableItemVariableList = new List<string>();
         public List<string> tableItemStringList = new List<string>();
+
+        public List<string> tableItemListWhere = new List<string>();
+        public List<string> tableItemVariableListWhere = new List<string>();
+        public List<string> tableItemStringListWhere = new List<string>();
+        public bool isList;
         public MainWindow()
         {
             InitializeComponent();
-            
+            SetAPIGenarate.IsEnabled = false;
+            GetAPIGenarate.IsEnabled = false;
+
         }
 
         private void AddTableItem_Click(object sender, RoutedEventArgs e)
@@ -46,7 +53,23 @@ namespace ApiGenerator
             TableElementList.ItemsSource = null;
             TableElementList.ItemsSource = tableItemStringList;
         }
+        private void AddTableItemwhere_Click(object sender, RoutedEventArgs e)
+        {
+            tableItemListWhere.Add(singleTableItemTextBoxWhere.Text);
+            if (isIntWhere.IsChecked == true)
+            {
+                tableItemVariableListWhere.Add("int");
+                tableItemStringListWhere.Add(singleTableItemTextBoxWhere.Text + " int");
+            }
+            else
+            {
+                tableItemVariableListWhere.Add("string");
+                tableItemStringListWhere.Add(singleTableItemTextBoxWhere.Text + " string");
+            }
 
+            TableElementListWhere.ItemsSource = null;
+            TableElementListWhere.ItemsSource = tableItemStringListWhere;
+        }
         private void tableGenarate_Click(object sender, RoutedEventArgs e)
         {
             string thisTxbxString = "create table " + clsName.Text + "(\n";
@@ -141,7 +164,42 @@ namespace ApiGenerator
 
         private void GetprocedureGenarate_Click(object sender, RoutedEventArgs e)
         {
-            string thisTxbxString = "create procedure get"+ clsName.Text +"\n as begin \n Select * from " + clsName.Text + "\n end";
+            string thisTxbxString;
+            if(IsConditionalProcedure.IsChecked == false)
+            {
+                thisTxbxString = "create procedure get" + clsName.Text + "\n as begin \n Select * from " + clsName.Text + "\n end";
+            }
+            else
+            {
+                thisTxbxString = "create procedure Get" + clsName.Text + "\n";
+                for (int i = 0; i < tableItemVariableList.Count; i++)
+                {
+                    if (tableItemVariableList[i] == "int")
+                    {
+                        if (i == tableItemVariableList.Count - 1)
+                        {
+                            thisTxbxString += " @" + tableItemList[i] + " int" + "\n";
+                        }
+                        else
+                        {
+                            thisTxbxString += " @" + tableItemList[i] + " int" + ",\n";
+                        }
+
+                    }
+                    else
+                    {
+                        if (i == tableItemVariableList.Count - 1)
+                        {
+                            thisTxbxString += " @" + tableItemList[i] + " nvarchar(50)" + "\n";
+                        }
+                        else
+                        {
+                            thisTxbxString += " @" + tableItemList[i] + " nvcarchar(50)" + ",\n";
+                        }
+                    }
+                }
+            }
+            
             procedureTextBox.Text = thisTxbxString;
         }
 
@@ -178,8 +236,62 @@ namespace ApiGenerator
 
         private void GetAPIGenarate_Click(object sender, RoutedEventArgs e)
         {
+            string thisTxbxString = "" +
+                "[AcceptVerbs(\"GET\", \"POST\")]\n" +
+                "public List<" + clsName.Text + "> get" + clsName.Text + "(" + clsName.Text + " obj)\n" +
+                "{\n" +
+                "List<" + clsName.Text + "> objRList" + " = new List<" + clsName.Text + ">();\n" +
+                "try\n" +
+                "{\n" +
+                " Connection();\n" +
+                "SqlCommand cmd = new SqlCommand(\"Get" + clsName.Text + "\", conn);\n" +
+                "conn.Open();\n" +
+                "SqlDataReader reader = cmd.ExecuteReader();\n" +
+                "while (reader.Read())\n" +
+                "{\n" +
+                clsName.Text + " objAdd" + " = new " + clsName.Text + "();\n";
 
+            for (int i = 0; i < tableItemVariableList.Count; i++)
+            {
+                if(tableItemVariableList[i] == "int")
+                {
+                    thisTxbxString += "objAdd." + tableItemList[i] + " = Convert.ToInt32(reader[\""+ tableItemList[i]+ "\"]);\n";
+                }
+                else
+                {
+                    thisTxbxString += "objAdd." + tableItemList[i] + " reader[\"" + tableItemList[i] + "\"].ToString(); \n";
+                }
+                
+            }
+            thisTxbxString += "objRList.Add(objAdd);\n}\n" +
+                "conn.Close();\n" +
+                "}\n" +
+                "catch (Exception ex)\n" +
+                "{\n" +
+                clsName.Text + " objAdd" + " = new " + clsName.Text + "();\n" +
+                "objAdd.Response = ex.Message;\n" +
+                "objRList.Add(objAdd);\n"+
+                "}\n" +
+                "retrun objRList\n" +
+                "}\n";
+            APITextBox.Text = thisTxbxString;
         }
+
+        private void ListAPIGenarate_Click(object sender, RoutedEventArgs e)
+        {
+            isList = true;
+            SetAPIGenarate.IsEnabled = true;
+            GetAPIGenarate.IsEnabled = true;
+        }
+
+        private void NonListAPIGenarate_Click(object sender, RoutedEventArgs e)
+        {
+            isList = false;
+            SetAPIGenarate.IsEnabled = true;
+            GetAPIGenarate.IsEnabled = true;
+        }
+
+       
     }
 }
  
