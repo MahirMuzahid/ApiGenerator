@@ -20,6 +20,7 @@
             </Grid.ColumnDefinitions>
             <TextBox x:Name="clsName" Grid.Column="1" Margin="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Label Content="Class Name" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="APi Genaretor" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -45,11 +46,12 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Parameter" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                <Label Content="What To Return" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
                 <TextBox x:Name="singleTableItemTextBox" Grid.Row="1" Grid.Column="0" Margin="5,15,5,15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Button x:Name="AddTableItem" Content="Add" Grid.Column="2" Grid.Row="1" Margin="5,19,5,19" Click="AddTableItem_Click"/>
                 <CheckBox x:Name="isInt" Content="isInt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ListBox x:Name="TableElementList" Grid.Row="2" Grid.ColumnSpan="3"/>
+                <Button x:Name="clearnItemList" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemList_Click"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Background="#E3E3E3">
                 <Grid.ColumnDefinitions>
@@ -62,11 +64,12 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Condition" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                <Label Content="Parameter" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
                 <TextBox x:Name="singleTableItemTextBoxWhere" Grid.Row="1" Grid.Column="0" Margin="5,15,5,15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 <Button x:Name="AddTableItemWhere" Content="Add" Grid.Column="2" Grid.Row="1" Margin="5,19,5,19" Click="AddTableItemwhere_Click"/>
                 <CheckBox x:Name="isIntWhere" Content="isInt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ListBox x:Name="TableElementListWhere" Grid.Row="2" Grid.ColumnSpan="3"/>
+                <Button x:Name="clearnItemListWhere" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemListWhere_Click"/>
             </Grid>
             
             
@@ -98,7 +101,7 @@
                 <Grid Grid.Column="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height=".6*"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -106,11 +109,11 @@
                         <ColumnDefinition Width=".5*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
+                    <Label Content="Procedure Nmae" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     <Button x:Name="SetprocedureGenarate" Content="Genarate Set Procedure" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetprocedureGenarate_Click" Margin="10" Background="#F3F3F3"/>
                     <Button x:Name="GetprocedureGenarate" Content="Genarate Get Procedure" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetprocedureGenarate_Click" Margin="10" Background="#F3F3F3"/>
-                    <CheckBox x:Name="IsConditionalProcedure" Content="IsConditional" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
-                    <CheckBox x:Name="IsUpdatelProcedure" Content="IsUpdate" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="ProcedureNameTxbx" Grid.Row="1" Grid.Column="1" Text="" Margin="0,25,0,0"/>
+                    <CheckBox x:Name="IsConditionalProcedure" Content="IsConditional" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>                  
+                    <TextBox x:Name="ProcedureNameTxbx" Grid.Row="1" Grid.Column="1" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <TextBox x:Name="procedureTextBox" Grid.Row="2" Grid.ColumnSpan="3" Margin="20"/>
                 </Grid>
             </Grid>
@@ -129,19 +132,16 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height=".8*"/>
+                        <RowDefinition Height=".9*"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
                     
                     <Button x:Name="ListAPIGenarate" Content="Genarate List Api" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ListAPIGenarate_Click" Margin="10" Background="#F3F3F3"/>
                     <Button x:Name="NonListAPIGenarate" Content="Genarate Non-List Api" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Background="#F3F3F3" Click="NonListAPIGenarate_Click"/>
-                    <Button x:Name="SetAPIGenarate" Content="Genarate Set Api" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetAPIGenarate_Click" Margin="10" Background="#F3F3F3"/>
-                    <Button x:Name="GetAPIGenarate" Content="Genarate Get Api" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="10"  Click="GetAPIGenarate_Click" Background="#F3F3F3"/>
-                    <CheckBox x:Name="IsConditionalApi" Content="IsConditional" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="ApiNameTxbx" Grid.Row="2" Text="" Margin="630,25,10,0"/>
-                    <TextBox x:Name="APITextBox" Grid.Row="3" Grid.ColumnSpan="2" Margin="20"/>
+                    <TextBox x:Name="ApiNameTxbx" Grid.Row="1" Text="" Margin="630,25,10,0"/>
+                    <TextBox x:Name="APITextBox" Grid.Row="2" Grid.ColumnSpan="2" Margin="20"/>
+                    <Label Content="HTTP Call Nmae" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,0,0,0"/>
                 </Grid>
             </Grid>
             

@@ -31,8 +31,7 @@ namespace ApiGenerator
         public MainWindow()
         {
             InitializeComponent();
-            SetAPIGenarate.IsEnabled = false;
-            GetAPIGenarate.IsEnabled = false;
+            ListAPIGenarate.IsEnabled = false;
 
         }
 
@@ -52,6 +51,7 @@ namespace ApiGenerator
             
             TableElementList.ItemsSource = null;
             TableElementList.ItemsSource = tableItemStringList;
+            ListAPIGenarate.IsEnabled = true;
         }
         private void AddTableItemwhere_Click(object sender, RoutedEventArgs e)
         {
@@ -167,37 +167,70 @@ namespace ApiGenerator
             string thisTxbxString;
             if(IsConditionalProcedure.IsChecked == false)
             {
-                thisTxbxString = "create procedure get" + clsName.Text + "\n as begin \n Select * from " + clsName.Text + "\n end";
+                thisTxbxString = "create procedure " + ProcedureNameTxbx.Text + "\n as begin \n Select * from " + clsName.Text + "\n end";
             }
             else
             {
-                thisTxbxString = "create procedure Get" + clsName.Text + "\n";
-                for (int i = 0; i < tableItemVariableList.Count; i++)
+                thisTxbxString = "create procedure " + ProcedureNameTxbx.Text + "\n";
+                for (int i = 0; i < tableItemVariableListWhere.Count; i++)
                 {
-                    if (tableItemVariableList[i] == "int")
+                    if (tableItemVariableListWhere[i] == "int")
                     {
-                        if (i == tableItemVariableList.Count - 1)
+                        if (i == tableItemVariableListWhere.Count - 1)
                         {
-                            thisTxbxString += " @" + tableItemList[i] + " int" + "\n";
+                            thisTxbxString += " @" + tableItemListWhere[i] + " int" + "\n";
                         }
                         else
                         {
-                            thisTxbxString += " @" + tableItemList[i] + " int" + ",\n";
+                            thisTxbxString += " @" + tableItemListWhere[i] + " int" + ",\n";
                         }
 
                     }
                     else
                     {
-                        if (i == tableItemVariableList.Count - 1)
+                        if (i == tableItemVariableListWhere.Count - 1)
                         {
-                            thisTxbxString += " @" + tableItemList[i] + " nvarchar(50)" + "\n";
+                            thisTxbxString += " @" + tableItemListWhere[i] + " nvarchar(50)" + "\n";
                         }
                         else
                         {
-                            thisTxbxString += " @" + tableItemList[i] + " nvcarchar(50)" + ",\n";
+                            thisTxbxString += " @" + tableItemListWhere[i] + " nvcarchar(50)" + ",\n";
                         }
                     }
                 }
+                thisTxbxString += "as begin \n Select ( ";
+
+                for (int i = 0; i < tableItemVariableList.Count; i++)
+                {
+                    if (i == tableItemVariableList.Count - 1)
+                    {
+                        thisTxbxString += tableItemList[i];
+                    }
+                    else
+                    {
+                        thisTxbxString += tableItemList[i] + ", ";
+                    }
+
+                }
+                thisTxbxString += ") \v Where ";
+                for (int i = 0; i < tableItemVariableListWhere.Count; i++)
+                {
+                    if(tableItemVariableListWhere.Count - 1 == 0)
+                    {
+                        thisTxbxString += tableItemListWhere[i] + " = @" + tableItemListWhere[i] + " ";
+                    }
+                    else if (i == tableItemVariableListWhere.Count - 1)
+                    {
+                        thisTxbxString += tableItemListWhere[i] + " = @" + tableItemListWhere[i] + ", ";
+                    }
+                    else
+                    {
+                        thisTxbxString += tableItemListWhere[i] + " = @" + tableItemListWhere[i] + " AND ";
+                    }
+
+                }
+                thisTxbxString += " \n end";
+               
             }
             
             procedureTextBox.Text = thisTxbxString;
@@ -210,18 +243,151 @@ namespace ApiGenerator
             {
                 thisTxbxString += "public " + tableItemVariableList[i] + " " + tableItemList[i] + " { get ; set ;} \n";
             }
+            thisTxbxString += "public Response { get ; set ;} \n";
             classTxbx.Text = thisTxbxString;
         }
 
-        private void SetAPIGenarate_Click(object sender, RoutedEventArgs e)
+        private void ListAPIGenarate_Click(object sender, RoutedEventArgs e)
         {
-            string thisTxbxString = "[AcceptVerbs(\"GET\", \"POST\")]\n public Response set" + clsName.Text + "(" + clsName.Text + " obj) \n {\n Response response = new Response(); \n try \n { \n Connection();\n  SqlCommand cmd = new SqlCommand(\"set"+ clsName.Text + "\",conn);\n cmd.CommandType = System.Data.CommandType.StoredProcedure;\n";
-            
-            for (int i = 0; i < tableItemVariableList.Count; i++)
+            isList = true;
+            APITextBox.Text = MaikeGetApi1stSegment() + addParapeter() + ReturnInfo();
+        }
+
+        private void NonListAPIGenarate_Click(object sender, RoutedEventArgs e)
+        {
+            isList = false;
+            APITextBox.Text = MaikeGetApi1stSegment() + addParapeter() + ReturnInfo();
+        }
+        public string MaikeGetApi1stSegment()
+        {
+            string returnString = "";
+
+            string returnType = "";
+
+            if (TableElementList.Items.Count != 0)
             {
-                thisTxbxString += " cmd.Parameters.AddWithValue(\"@" + tableItemList[i] + "\", obj." + tableItemList[i] + ");\n";
+                returnType = clsName.Text;
             }
-            thisTxbxString += " conn.Open();\nint i = cmd.ExecuteNonQuery();\n" +
+            else
+            {
+                returnType = "Response";
+            }
+            if (!isList)
+            {
+                if (TableElementListWhere.Items.Count != 0)
+                {
+                    returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic " + returnType + " "+ ApiNameTxbx.Text + "(" + returnType + " obj)\n" + clsName.Text + " objR" + " = new " + clsName.Text + "();";
+                }
+                else
+                {
+                    returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic " + returnType + " " + ApiNameTxbx.Text + "()\n" + returnType + " objR" + " = new " + clsName.Text + "();";
+                }
+                
+            }
+            else
+            {
+                if (TableElementListWhere.Items.Count != 0)
+                {
+                    returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic List<" + returnType + "> " + ApiNameTxbx.Text + "(" + returnType + " obj)\nList<" + clsName.Text + "> objRList" + " = new List<" + clsName.Text + ">();";
+                }
+                else
+                {
+                    returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic List<" + returnType + "> " + ApiNameTxbx.Text + "()\nList<" + returnType + "> objRList" + " = new List<" + clsName.Text + ">();";
+                }
+                    
+            }
+            return returnString;
+        }
+
+        public string addParapeter()
+        {
+            string returnString = "";
+            returnString = "\ntry \n" +
+                    "{\n" +
+                    "Connection();\n" +
+                    "SqlCommand cmd = new SqlCommand(\"" + ApiNameTxbx.Text + "\", conn);\n";
+                    
+            if (TableElementListWhere.Items.Count != 0)
+            {         
+                returnString+= "cmd.CommandType = System.Data.CommandType.StoredProcedure;\n";
+                for (int i = 0; i < TableElementListWhere.Items.Count; i++)
+                {
+                    returnString += "cmd.Parameters.AddWithValue(\"@" + tableItemListWhere[i] + "\", obj." + tableItemListWhere[i] + ");\n";
+                }
+            }
+            
+            return returnString;
+        }
+
+        public string ReturnInfo()
+        {
+            string returnString = "";
+
+            if(TableElementList.Items.Count != 0)
+            {
+                returnString += "conn.Open();\n" +
+                           "SqlDataReader reader = cmd.ExecuteReader();\n";
+                returnString = "while (reader.Read())\n" +
+                "{\n";
+                returnString += clsName.Text + " objAdd" + " = new " + clsName.Text + "();\n";
+                for (int i = 0; i < tableItemVariableList.Count; i++)
+                {
+                    if (isList)
+                    {
+                        
+                        if (tableItemVariableList[i] == "int")
+                        {
+                            returnString += "objAdd." + tableItemList[i] + " = Convert.ToInt32(reader[\"" + tableItemList[i] + "\"]);\n";
+                        }
+                        else
+                        {
+                            returnString += "objAdd." + tableItemList[i] + " = reader[\"" + tableItemList[i] + "\"].ToString(); \n";
+                        }
+                        
+                    }
+                    else
+                    {
+                        if (tableItemVariableList[i] == "int")
+                        {
+                            returnString += "objR." + tableItemList[i] + " = Convert.ToInt32(reader[\"" + tableItemList[i] + "\"]);\n";
+                        }
+                        else
+                        {
+                            returnString += "objR." + tableItemList[i] + " = reader[\"" + tableItemList[i] + "\"].ToString(); \n";
+                        }
+                       
+                    }
+                }
+                if (isList)
+                {
+                    returnString += "objRList.Add(objAdd);\n}\n" +
+                    "conn.Close();\n" +
+                    "}\n" +
+                    "catch (Exception ex)\n" +
+                    "{\n" +
+                    clsName.Text + " objAdd" + " = new " + clsName.Text + "();\n" +
+                    "objAdd.Response = ex.Message;\n" +
+                    "objRList.Add(objAdd);\n" +
+                    "}\n" +
+                    "retrun objRList\n" +
+                    "}\n";
+                }
+                else
+                {
+                    returnString +=
+                   "conn.Close();\n" +
+                   "}\n" +
+                   "catch (Exception ex)\n" +
+                   "{\n" +
+                   "objR.Response = ex.Message;\n" +
+                   "}\n" +
+                   "retrun objR\n" +
+                   "}\n";
+                }
+            }
+            else
+            {
+                returnString += " conn.Open();\nint i = cmd.ExecuteNonQuery();\n" +
                 "if (i != 0)\n" +
                 "{" +
                 "\n" +
@@ -231,67 +397,30 @@ namespace ApiGenerator
                 "else\n" +
                 "{\n " +
                 "response.Massage = \"Unsuccesfull!\";\nresponse.Status = 1;\n}\n}\ncatch(Exception ex)\n{\nresponse.Massage = ex.Message;\nresponse.Status = 0;\n}\nreturn response;\n}\n";
-            APITextBox.Text = thisTxbxString;
-        }
-
-        private void GetAPIGenarate_Click(object sender, RoutedEventArgs e)
-        {
-            string thisTxbxString = "" +
-                "[AcceptVerbs(\"GET\", \"POST\")]\n" +
-                "public List<" + clsName.Text + "> get" + clsName.Text + "(" + clsName.Text + " obj)\n" +
-                "{\n" +
-                "List<" + clsName.Text + "> objRList" + " = new List<" + clsName.Text + ">();\n" +
-                "try\n" +
-                "{\n" +
-                " Connection();\n" +
-                "SqlCommand cmd = new SqlCommand(\"Get" + clsName.Text + "\", conn);\n" +
-                "conn.Open();\n" +
-                "SqlDataReader reader = cmd.ExecuteReader();\n" +
-                "while (reader.Read())\n" +
-                "{\n" +
-                clsName.Text + " objAdd" + " = new " + clsName.Text + "();\n";
-
-            for (int i = 0; i < tableItemVariableList.Count; i++)
-            {
-                if(tableItemVariableList[i] == "int")
-                {
-                    thisTxbxString += "objAdd." + tableItemList[i] + " = Convert.ToInt32(reader[\""+ tableItemList[i]+ "\"]);\n";
-                }
-                else
-                {
-                    thisTxbxString += "objAdd." + tableItemList[i] + " reader[\"" + tableItemList[i] + "\"].ToString(); \n";
-                }
-                
             }
-            thisTxbxString += "objRList.Add(objAdd);\n}\n" +
-                "conn.Close();\n" +
-                "}\n" +
-                "catch (Exception ex)\n" +
-                "{\n" +
-                clsName.Text + " objAdd" + " = new " + clsName.Text + "();\n" +
-                "objAdd.Response = ex.Message;\n" +
-                "objRList.Add(objAdd);\n"+
-                "}\n" +
-                "retrun objRList\n" +
-                "}\n";
-            APITextBox.Text = thisTxbxString;
+            
+            
+            return returnString;
         }
 
-        private void ListAPIGenarate_Click(object sender, RoutedEventArgs e)
+        private void clearnItemList_Click(object sender, RoutedEventArgs e)
         {
-            isList = true;
-            SetAPIGenarate.IsEnabled = true;
-            GetAPIGenarate.IsEnabled = true;
+            TableElementList.ItemsSource = "";
+
+            tableItemList.Clear();
+            tableItemVariableList.Clear();
+            tableItemStringList.Clear();
+            ListAPIGenarate.IsEnabled = false;
         }
 
-        private void NonListAPIGenarate_Click(object sender, RoutedEventArgs e)
+        private void clearnItemListWhere_Click(object sender, RoutedEventArgs e)
         {
-            isList = false;
-            SetAPIGenarate.IsEnabled = true;
-            GetAPIGenarate.IsEnabled = true;
-        }
+            TableElementListWhere.ItemsSource ="";
 
-       
+            tableItemListWhere.Clear();
+            tableItemVariableListWhere.Clear();
+            tableItemStringListWhere.Clear();
+        }
     }
 }
  
