@@ -1,12 +1,15 @@
-﻿<Window x:Class="ApiGenerator.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ApiGenerator"
-        mc:Ignorable="d"
-        Title="MainWindow"  d:DesignHeight="818.516" d:DesignWidth="1103.871">
-    <Grid>
+﻿<Page x:Class="ApiGenerator.APIGenaretor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ApiGenerator"
+      mc:Ignorable="d" 
+      d:DesignHeight="818.516" d:DesignWidth="1103.871"
+      Title="APIGenaretor">
+
+    <Grid Background="White">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="18*"/>
@@ -21,6 +24,9 @@
             <TextBox x:Name="clsName" Grid.Column="1" Margin="12" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Label Content="Class Name" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content="APi Genaretor" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold"/>
+            <Button Content="UI Genaretor" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Click="Button_Click" />
+
+
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -71,9 +77,9 @@
                 <ListBox x:Name="TableElementListWhere" Grid.Row="2" Grid.ColumnSpan="3"/>
                 <Button x:Name="clearnItemListWhere" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemListWhere_Click"/>
             </Grid>
-            
-            
-            
+
+
+
             <Grid Grid.Row="1" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -112,7 +118,7 @@
                     <Label Content="Procedure Nmae" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     <Button x:Name="SetprocedureGenarate" Content="Genarate Set Procedure" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetprocedureGenarate_Click" Margin="10" Background="#F3F3F3"/>
                     <Button x:Name="GetprocedureGenarate" Content="Genarate Get Procedure" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetprocedureGenarate_Click" Margin="10" Background="#F3F3F3"/>
-                    <CheckBox x:Name="IsConditionalProcedure" Content="IsConditional" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>                  
+                    <CheckBox x:Name="IsConditionalProcedure" Content="IsConditional" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
                     <TextBox x:Name="ProcedureNameTxbx" Grid.Row="1" Grid.Column="1" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <TextBox x:Name="procedureTextBox" Grid.Row="2" Grid.ColumnSpan="3" Margin="20"/>
                 </Grid>
@@ -136,7 +142,7 @@
                         <RowDefinition Height=".9*"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Button x:Name="ListAPIGenarate" Content="Genarate List Api" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ListAPIGenarate_Click" Margin="10" Background="#F3F3F3"/>
                     <Button x:Name="NonListAPIGenarate" Content="Genarate Non-List Api" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Background="#F3F3F3" Click="NonListAPIGenarate_Click"/>
                     <TextBox x:Name="ApiNameTxbx" Grid.Row="1" Text="" Margin="630,25,10,0"/>
@@ -144,7 +150,7 @@
                     <Label Content="HTTP Call Nmae" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,0,0,0"/>
                 </Grid>
             </Grid>
-            
+
         </Grid>
     </Grid>
-</Window>
+</Page>

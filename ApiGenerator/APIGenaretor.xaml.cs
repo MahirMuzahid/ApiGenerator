@@ -16,9 +16,9 @@ using System.Windows.Shapes;
 namespace ApiGenerator
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for APIGenaretor.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class APIGenaretor : Page
     {
         public List<string> tableItemList = new List<string>();
         public List<string> tableItemVariableList = new List<string>();
@@ -28,7 +28,7 @@ namespace ApiGenerator
         public List<string> tableItemVariableListWhere = new List<string>();
         public List<string> tableItemStringListWhere = new List<string>();
         public bool isList;
-        public MainWindow()
+        public APIGenaretor()
         {
             InitializeComponent();
             ListAPIGenarate.IsEnabled = false;
@@ -38,7 +38,7 @@ namespace ApiGenerator
         private void AddTableItem_Click(object sender, RoutedEventArgs e)
         {
             tableItemList.Add(singleTableItemTextBox.Text);
-            if(isInt.IsChecked == true)
+            if (isInt.IsChecked == true)
             {
                 tableItemVariableList.Add("int");
                 tableItemStringList.Add(singleTableItemTextBox.Text + " int");
@@ -48,7 +48,7 @@ namespace ApiGenerator
                 tableItemVariableList.Add("string");
                 tableItemStringList.Add(singleTableItemTextBox.Text + " string");
             }
-            
+
             TableElementList.ItemsSource = null;
             TableElementList.ItemsSource = tableItemStringList;
             ListAPIGenarate.IsEnabled = true;
@@ -73,11 +73,11 @@ namespace ApiGenerator
         private void tableGenarate_Click(object sender, RoutedEventArgs e)
         {
             string thisTxbxString = "create table " + clsName.Text + "(\n";
-            for(int i = 0; i < tableItemVariableList.Count; i++)
+            for (int i = 0; i < tableItemVariableList.Count; i++)
             {
-                if(tableItemVariableList[i] == "int")
+                if (tableItemVariableList[i] == "int")
                 {
-                    if(i == tableItemVariableList.Count-1)
+                    if (i == tableItemVariableList.Count - 1)
                     {
                         thisTxbxString += tableItemList[i] + " int" + "\n";
                     }
@@ -85,7 +85,7 @@ namespace ApiGenerator
                     {
                         thisTxbxString += tableItemList[i] + " int" + ",\n";
                     }
-                    
+
                 }
                 else
                 {
@@ -143,14 +143,14 @@ namespace ApiGenerator
                 {
                     thisTxbxString += tableItemList[i] + ", ";
                 }
-                
+
             }
             thisTxbxString += ") \v values ( ";
             for (int i = 0; i < tableItemVariableList.Count; i++)
             {
                 if (i == tableItemVariableList.Count - 1)
                 {
-                    thisTxbxString += "@"+ tableItemList[i];
+                    thisTxbxString += "@" + tableItemList[i];
                 }
                 else
                 {
@@ -165,7 +165,7 @@ namespace ApiGenerator
         private void GetprocedureGenarate_Click(object sender, RoutedEventArgs e)
         {
             string thisTxbxString;
-            if(IsConditionalProcedure.IsChecked == false)
+            if (IsConditionalProcedure.IsChecked == false)
             {
                 thisTxbxString = "create procedure " + ProcedureNameTxbx.Text + "\n as begin \n Select * from " + clsName.Text + "\n end";
             }
@@ -215,7 +215,7 @@ namespace ApiGenerator
                 thisTxbxString += ") \v Where ";
                 for (int i = 0; i < tableItemVariableListWhere.Count; i++)
                 {
-                    if(tableItemVariableListWhere.Count - 1 == 0)
+                    if (tableItemVariableListWhere.Count - 1 == 0)
                     {
                         thisTxbxString += tableItemListWhere[i] + " = @" + tableItemListWhere[i] + " ";
                     }
@@ -230,9 +230,9 @@ namespace ApiGenerator
 
                 }
                 thisTxbxString += " \n end";
-               
+
             }
-            
+
             procedureTextBox.Text = thisTxbxString;
         }
 
@@ -276,13 +276,13 @@ namespace ApiGenerator
             {
                 if (TableElementListWhere.Items.Count != 0)
                 {
-                    returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic " + returnType + " "+ ApiNameTxbx.Text + "(" + returnType + " obj)\n" + clsName.Text + " objR" + " = new " + clsName.Text + "();";
+                    returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic " + returnType + " " + ApiNameTxbx.Text + "(" + returnType + " obj)\n" + clsName.Text + " objR" + " = new " + clsName.Text + "();";
                 }
                 else
                 {
                     returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic " + returnType + " " + ApiNameTxbx.Text + "()\n" + returnType + " objR" + " = new " + clsName.Text + "();";
                 }
-                
+
             }
             else
             {
@@ -294,7 +294,7 @@ namespace ApiGenerator
                 {
                     returnString = "[AcceptVerbs(\"GET\", \"POST\")]\npublic List<" + returnType + "> " + ApiNameTxbx.Text + "()\nList<" + returnType + "> objRList" + " = new List<" + clsName.Text + ">();";
                 }
-                    
+
             }
             return returnString;
         }
@@ -306,16 +306,16 @@ namespace ApiGenerator
                     "{\n" +
                     "Connection();\n" +
                     "SqlCommand cmd = new SqlCommand(\"" + ApiNameTxbx.Text + "\", conn);\n";
-                    
+
             if (TableElementListWhere.Items.Count != 0)
-            {         
-                returnString+= "cmd.CommandType = System.Data.CommandType.StoredProcedure;\n";
+            {
+                returnString += "cmd.CommandType = System.Data.CommandType.StoredProcedure;\n";
                 for (int i = 0; i < TableElementListWhere.Items.Count; i++)
                 {
                     returnString += "cmd.Parameters.AddWithValue(\"@" + tableItemListWhere[i] + "\", obj." + tableItemListWhere[i] + ");\n";
                 }
             }
-            
+
             return returnString;
         }
 
@@ -323,7 +323,7 @@ namespace ApiGenerator
         {
             string returnString = "";
 
-            if(TableElementList.Items.Count != 0)
+            if (TableElementList.Items.Count != 0)
             {
                 returnString += "conn.Open();\n" +
                            "SqlDataReader reader = cmd.ExecuteReader();\n";
@@ -334,7 +334,7 @@ namespace ApiGenerator
                 {
                     if (isList)
                     {
-                        
+
                         if (tableItemVariableList[i] == "int")
                         {
                             returnString += "objAdd." + tableItemList[i] + " = Convert.ToInt32(reader[\"" + tableItemList[i] + "\"]);\n";
@@ -343,7 +343,7 @@ namespace ApiGenerator
                         {
                             returnString += "objAdd." + tableItemList[i] + " = reader[\"" + tableItemList[i] + "\"].ToString(); \n";
                         }
-                        
+
                     }
                     else
                     {
@@ -355,7 +355,7 @@ namespace ApiGenerator
                         {
                             returnString += "objR." + tableItemList[i] + " = reader[\"" + tableItemList[i] + "\"].ToString(); \n";
                         }
-                       
+
                     }
                 }
                 if (isList)
@@ -398,8 +398,8 @@ namespace ApiGenerator
                 "{\n " +
                 "response.Massage = \"Unsuccesfull!\";\nresponse.Status = 1;\n}\n}\ncatch(Exception ex)\n{\nresponse.Massage = ex.Message;\nresponse.Status = 0;\n}\nreturn response;\n}\n";
             }
-            
-            
+
+
             return returnString;
         }
 
@@ -415,12 +415,17 @@ namespace ApiGenerator
 
         private void clearnItemListWhere_Click(object sender, RoutedEventArgs e)
         {
-            TableElementListWhere.ItemsSource ="";
+            TableElementListWhere.ItemsSource = "";
 
             tableItemListWhere.Clear();
             tableItemVariableListWhere.Clear();
             tableItemStringListWhere.Clear();
         }
+        UIGenaretor ui = new UIGenaretor();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new UIGenaretor());
+        }
     }
+
 }
- 
