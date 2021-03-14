@@ -307,10 +307,10 @@ namespace ApiGenerator
                     "Connection();\n" +
                     "SqlCommand cmd = new SqlCommand(\"" + ApiNameTxbx.Text + "\", conn);\n";
 
-            if (TableElementListWhere.Items.Count != 0)
+            if (tableItemStringListWhere.Count != 0)
             {
                 returnString += "cmd.CommandType = System.Data.CommandType.StoredProcedure;\n";
-                for (int i = 0; i < TableElementListWhere.Items.Count; i++)
+                for (int i = 0; i < tableItemStringListWhere.Count; i++)
                 {
                     returnString += "cmd.Parameters.AddWithValue(\"@" + tableItemListWhere[i] + "\", obj." + tableItemListWhere[i] + ");\n";
                 }
@@ -425,6 +425,25 @@ namespace ApiGenerator
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new UIGenaretor());
+        }
+
+        private void copyItemList_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < tableItemList.Count; i++)
+            {
+                tableItemListWhere.Add(tableItemList[i]);
+                tableItemVariableListWhere.Add(tableItemVariableList[i]);
+                tableItemStringListWhere.Add(tableItemStringList[i]);
+            }
+           
+        }
+
+        private void copyItemListWhere_Click(object sender, RoutedEventArgs e)
+        {
+            TableElementListWhere.ItemsSource = null;
+            TableElementListWhere.ItemsSource = tableItemStringListWhere;
+
+
         }
     }
 

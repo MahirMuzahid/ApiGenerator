@@ -58,6 +58,7 @@
                 <CheckBox x:Name="isInt" Content="isInt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ListBox x:Name="TableElementList" Grid.Row="2" Grid.ColumnSpan="3"/>
                 <Button x:Name="clearnItemList" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemList_Click"/>
+                <Button x:Name="copyItemList" Content="Copy" Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Yellow" Foreground="Black" Click="copyItemList_Click"/>
             </Grid>
             <Grid Grid.Row="1" Grid.Column="0" Background="#E3E3E3">
                 <Grid.ColumnDefinitions>
@@ -76,6 +77,7 @@
                 <CheckBox x:Name="isIntWhere" Content="isInt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ListBox x:Name="TableElementListWhere" Grid.Row="2" Grid.ColumnSpan="3"/>
                 <Button x:Name="clearnItemListWhere" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemListWhere_Click"/>
+                <Button x:Name="copyItemListWhere" Content="Pest" Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Yellow" Foreground="Black" Click="copyItemListWhere_Click"/>
             </Grid>
 
 
@@ -115,10 +117,10 @@
                         <ColumnDefinition Width=".5*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Procedure Nmae" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    <Label Content="Procedure Name" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     <Button x:Name="SetprocedureGenarate" Content="Genarate Set Procedure" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Click="SetprocedureGenarate_Click" Margin="10" Background="#F3F3F3"/>
                     <Button x:Name="GetprocedureGenarate" Content="Genarate Get Procedure" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Click="GetprocedureGenarate_Click" Margin="10" Background="#F3F3F3"/>
-                    <CheckBox x:Name="IsConditionalProcedure" Content="IsConditional" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
+                    <CheckBox x:Name="IsConditionalProcedure" Content="IsConditional" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10"/>
                     <TextBox x:Name="ProcedureNameTxbx" Grid.Row="1" Grid.Column="1" Text="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                     <TextBox x:Name="procedureTextBox" Grid.Row="2" Grid.ColumnSpan="3" Margin="20"/>
                 </Grid>
@@ -147,7 +149,7 @@
                     <Button x:Name="NonListAPIGenarate" Content="Genarate Non-List Api" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Background="#F3F3F3" Click="NonListAPIGenarate_Click"/>
                     <TextBox x:Name="ApiNameTxbx" Grid.Row="1" Text="" Margin="630,25,10,0"/>
                     <TextBox x:Name="APITextBox" Grid.Row="2" Grid.ColumnSpan="2" Margin="20"/>
-                    <Label Content="HTTP Call Nmae" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,0,0,0"/>
+                    <Label Content="HTTP Call Name" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350,0,0,0"/>
                 </Grid>
             </Grid>
 
