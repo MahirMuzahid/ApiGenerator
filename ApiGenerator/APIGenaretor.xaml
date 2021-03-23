@@ -25,6 +25,7 @@
             <Label Content="Class Name" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content="APi Genaretor" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="DemiBold"/>
             <Button Content="UI Genaretor" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Click="Button_Click" />
+            <Button Content="Class Genaretor" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2" Click="Button_Click_1" Margin="0,0,200,0" />
 
 
         </Grid>
