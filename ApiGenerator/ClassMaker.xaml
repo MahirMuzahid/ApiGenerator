@@ -1,0 +1,60 @@
+﻿<Page x:Class="ApiGenerator.ClassMaker"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ApiGenerator"
+      mc:Ignorable="d" 
+      d:DesignHeight="818.516" d:DesignWidth="1103.871"
+      Title="ClassMaker">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Background="#E3E3E3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <Label Content="What To Return" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+            <TextBox x:Name="singleTableItemTextBox" Grid.Row="1" Grid.Column="0" Margin="5,15,5,15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Button x:Name="AddTableItem" Content="Add" Grid.Column="2" Grid.Row="1" Margin="5,19,5,19" Click="AddTableItem_Click"/>
+            <CheckBox x:Name="isInt" Content="isInt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListBox x:Name="TableElementList" Grid.Row="2" Grid.ColumnSpan="3"/>
+            <Button x:Name="clearnItemList" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemList_Click"/>
+            <Button x:Name="copyItemList" Content="Copy" Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Yellow" Foreground="Black" Click="copyItemList_Click"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Background="#E3E3E3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+            </Grid.RowDefinitions>
+            <Label Content="What To Return" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+            <TextBox x:Name="singleTableItemextBox" Grid.Row="1" Grid.Column="0" Margin="5,15,5,15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Button x:Name="AddTableItm" Content="Add" Grid.Column="2" Grid.Row="1" Margin="5,19,5,19" Click="AddTableItem_Click"/>
+            <CheckBox x:Name="isnt" Content="isInt" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListBox x:Name="TabeElementList" Grid.Row="2" Grid.ColumnSpan="3"/>
+            <Button x:Name="clernItemList" Content="Clear" Grid.Row="0" Grid.Column="3" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemList_Click"/>
+            <Button x:Name="copItemList" Content="Copy" Grid.Row="0" Grid.Column="0" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Center" Background="Yellow" Foreground="Black" Click="copyItemList_Click"/>
+        </Grid>
+    </Grid>
+</Page>

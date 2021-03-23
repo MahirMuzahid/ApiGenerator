@@ -58,6 +58,9 @@
     <Compile Include="APIGenaretor.xaml.cs">
       <DependentUpon>APIGenaretor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClassMaker.xaml.cs">
+      <DependentUpon>ClassMaker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UIGenaretor.xaml.cs">
       <DependentUpon>UIGenaretor.xaml</DependentUpon>
     </Compile>
@@ -69,6 +72,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ClassMaker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UIGenaretor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
