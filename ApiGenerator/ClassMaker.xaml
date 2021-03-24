@@ -11,14 +11,14 @@
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="#15000000">
+        <Grid Grid.Row="0"  Grid.ColumnSpan="3" Background="#15000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -39,10 +39,10 @@
             <Label Content="Single Path" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4"/>
             <TextBox x:Name="singlePath" Grid.Column="5" Margin="0,10,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <Button Content="Genaretor All Code" Grid.Column="7" Margin="0,10,0,10" BorderBrush="Transparent" />
+            <Button Content="Genaretor All Code" Grid.Column="7" Margin="0,10,0,10" BorderBrush="Transparent"  />
         </Grid>
-        
-        <Grid Grid.Row="1" Grid.Column="0" Background="#E3E3E3">
+
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Background="#E3E3E3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -54,19 +54,220 @@
                 <RowDefinition Height=".5*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height=".5*"/>
-                <RowDefinition Height="6*"/>
+                <RowDefinition Height="12*"/>
             </Grid.RowDefinitions>
             <Label Content="Parameter" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
             <TextBox x:Name="singleTableItemTextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="5,15,5,15" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Button x:Name="AddTableItem" Content="Add" Grid.Column="4" Grid.Row="1" Margin="5,15,5,15" />
+            <Button x:Name="AddTableItem" Content="Add" Grid.Column="4" Grid.Row="1" Margin="5,15,5,15" Click="AddTableItem_Click" />
             <CheckBox x:Name="intch" Content="Int" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <CheckBox x:Name="stringch" Content="String" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <CheckBox x:Name="doublech" Content="Double" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <CheckBox x:Name="floatch" Content="Flaot" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <ListBox x:Name="TableElementList" Grid.Row="3" Grid.ColumnSpan="5"/>
-            <Button x:Name="clearnItemList" Content="Clear" Grid.Row="0" Grid.Column="5" Margin="3" Background="#F55C5C " Foreground="White" />
-            <Button Content="Add To Server" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" BorderBrush="Transparent" Background="#701ABC9C"/>
+            <Button x:Name="clearnItemList" Content="Clear" Grid.Row="0" Grid.Column="5" Margin="3" Background="#F55C5C " Foreground="White" Click="clearnItemList_Click"/>
+            <Button Content="Add To Server" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10" BorderBrush="Transparent" Background="#701ABC9C" Click="Button_Click"/>
         </Grid>
-        
+        <ListView  x:Name="clsList" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" BorderBrush="white">
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Header="ID" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ID}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="PrNumber" Width="100" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PrNumber}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Table Name" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding tableName}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="pr1n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr1n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr2n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr2n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr3n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr3n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom" Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr4n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr4n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr5n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr5n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr6n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr6n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr7n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr7n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr8n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr8n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr9n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr9n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr10n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr10n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr11n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr11n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr12n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr12n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr13n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr13n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr14n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr14n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom" Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr15n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr15n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr16n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr16n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr17n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr17n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr18n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr18n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr19n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr19n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="pr20n" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding pr20n}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Delete" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Background="#50E02323"  FontSize="14"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="" Width="2000" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text=""/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Page>
