@@ -183,25 +183,73 @@ namespace ApiGenerator
 
 
 
-            string c_Code = makeClass(0);
+            string c_Code = makeSql(0) + "\n" + makeClass(0);
 
 
             File.WriteAllText(path, c_Code);
 
             rfslbl.Content = "Code Genareted!!!";
         }
-
         public string makeClass(int clsIndex)
         {
             ClassGen thisclass = new ClassGen();
             thisclass = allClass[clsIndex];
+
+            List<string> thisClassParameter = new List<string>();
+            char[] charsToTrim = { ' ', '1', '2', '3', '4' };
+            thisClassParameter.Add(thisclass.pr1n);
+            thisClassParameter.Add(thisclass.pr2n);
+            thisClassParameter.Add(thisclass.pr3n);
+            thisClassParameter.Add(thisclass.pr4n);
+            thisClassParameter.Add(thisclass.pr5n);
+            thisClassParameter.Add(thisclass.pr6n);
+            thisClassParameter.Add(thisclass.pr7n);
+            thisClassParameter.Add(thisclass.pr8n);
+            thisClassParameter.Add(thisclass.pr9n);
+            thisClassParameter.Add(thisclass.pr10n);
+            thisClassParameter.Add(thisclass.pr11n);
+            thisClassParameter.Add(thisclass.pr12n);
+            thisClassParameter.Add(thisclass.pr13n);
+            thisClassParameter.Add(thisclass.pr14n);
+            thisClassParameter.Add(thisclass.pr15n);
+            thisClassParameter.Add(thisclass.pr16n);
+            thisClassParameter.Add(thisclass.pr17n);
+            thisClassParameter.Add(thisclass.pr18n);
+            thisClassParameter.Add(thisclass.pr19n);
+            thisClassParameter.Add(thisclass.pr20n);
+            string classCode = "";
             for (int i = 0; i < thisclass.PrNumber; i++)
             {
-                if(i == 0)
+                if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '1')
                 {
-
+                    classCode += thisClassParameter[i].Trim(charsToTrim) + " int { get ; set ;} \n";
                 }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '2')
+                {
+                    classCode += thisClassParameter[i].Trim(charsToTrim) + " string { get ; set ;} \n";
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '3' )
+                {
+                    classCode += thisClassParameter[i].Trim(charsToTrim) + " double { get ; set ;} \n";
+                }
+                else if ( thisClassParameter[i][thisClassParameter[i].Length - 1] == '4')
+                {
+                    classCode += thisClassParameter[i].Trim(charsToTrim) + " float { get ; set ;} \n";
+                }
+
             }
+
+            classCode += "public Response { get ; set ;} \n";
+
+            classCode = "--------------------- Class Code ----------------------------\n" + classCode + ");\n---------------------------------------------------------";
+
+            return classCode;
+        }
+
+        public string makeSql(int clsIndex)
+        {
+            ClassGen thisclass = new ClassGen();
+            thisclass = allClass[clsIndex];
 
             List<string> thisClassParameter = new List<string>();
             char[] charsToTrim = { ' ', '1', '2', '3','4'};
@@ -264,7 +312,7 @@ namespace ApiGenerator
                 }
 
             }
-            classCode = "--------------------- Class Code ----------------------------\n"+ classCode + ");\n---------------------------------------------------------";
+            classCode = "--------------------- Sql Table Code ----------------------------\n"+ classCode + ");\n---------------------------------------------------------";
 
             return classCode;
         }
