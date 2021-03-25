@@ -52,6 +52,7 @@ namespace ApiGenerator
             allClass = await "https://api.shikkhanobish.com/api/ApiMaker/getAPiMaker".GetJsonAsync<ObservableCollection<ClassGen>>();
             clsList.ItemsSource = null;
             clsList.ItemsSource = allClass;
+            rfslbl.Content = "";
         }
         private void AddTableItem_Click(object sender, RoutedEventArgs e)
         {
@@ -126,11 +127,15 @@ namespace ApiGenerator
             StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
             HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
             string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             SetClass();
+            rfslbl.Content = "Refresh Now";
         }
        
         public List<string> ConvertToServerList()
