@@ -181,7 +181,7 @@ namespace ApiGenerator
 
             string path = @"D:\CodeGenerator\Auto Genareted Code/" + allClass[0].tableName+".txt";
 
-            string c_Code = makeSql(0) + "\n" + makeClass(0) + "\n" + makeGetProcedure(0)+ "\n" + makeGetProcedureWithID(0) + "\n" + makeGetApi(0);
+            string c_Code = makeSql(0) + "\n" + makeClass(0) + "\n" + makeGetProcedure(0)+ "\n" + makeGetProcedureWithID(0) + "\n" + makeGetApi(0) + "\n" + makeGetApiWithID(0) + "\n" + makeSetProcedure(0);
 
             File.WriteAllText(path, c_Code);
 
@@ -238,7 +238,7 @@ namespace ApiGenerator
 
             classCode += "public Response { get ; set ;} \n";
 
-            classCode = "--------------------- Class Code ----------------------------\n" + classCode + ");\n---------------------------------------------------------";
+            classCode = "--------------------- Class Code ----------------------------\n" + classCode + "\n---------------------------------------------------------";
 
             return classCode;
         }
@@ -313,6 +313,8 @@ namespace ApiGenerator
 
             return classCode;
         }
+
+
 
         public string makeGetProcedure(int clsIndex)
         {
@@ -450,6 +452,175 @@ namespace ApiGenerator
                     "}\n";
             apiCode = "--------------------- Get All Info Api ----------------------------\n" + apiCode + "\n---------------------------------------------------------";
             return apiCode;
+        }
+
+        public string makeGetApiWithID(int clsIndex)
+        {
+            ClassGen thisclass = new ClassGen();
+            thisclass = allClass[clsIndex];
+
+            List<string> thisClassParameter = new List<string>();
+            char[] charsToTrim = { ' ', '1', '2', '3', '4' };
+            thisClassParameter.Add(thisclass.pr1n);
+            thisClassParameter.Add(thisclass.pr2n);
+            thisClassParameter.Add(thisclass.pr3n);
+            thisClassParameter.Add(thisclass.pr4n);
+            thisClassParameter.Add(thisclass.pr5n);
+            thisClassParameter.Add(thisclass.pr6n);
+            thisClassParameter.Add(thisclass.pr7n);
+            thisClassParameter.Add(thisclass.pr8n);
+            thisClassParameter.Add(thisclass.pr9n);
+            thisClassParameter.Add(thisclass.pr10n);
+            thisClassParameter.Add(thisclass.pr11n);
+            thisClassParameter.Add(thisclass.pr12n);
+            thisClassParameter.Add(thisclass.pr13n);
+            thisClassParameter.Add(thisclass.pr14n);
+            thisClassParameter.Add(thisclass.pr15n);
+            thisClassParameter.Add(thisclass.pr16n);
+            thisClassParameter.Add(thisclass.pr17n);
+            thisClassParameter.Add(thisclass.pr18n);
+            thisClassParameter.Add(thisclass.pr19n);
+            thisClassParameter.Add(thisclass.pr20n);
+
+            string apiCode = "";
+            apiCode = "[AcceptVerbs(\"GET\", \"POST\")]\npublic " + thisclass.tableName + " get" + thisclass.tableName + "WithID("+ thisclass.tableName +" obj)\n{\n" + thisclass.tableName + " objR" + " = new " + thisclass.tableName + "();";
+
+            apiCode += "\ntry \n" +
+                    "{\n" +
+                    "Connection();\n" +
+                    "SqlCommand cmd = new SqlCommand(\"" + "get" + thisclass.tableName + "WithID\", conn);\n" + "cmd.CommandType = System.Data.CommandType.StoredProcedure;\n" +
+                    "cmd.Parameters.AddWithValue(\"@" + thisClassParameter[0].Trim(charsToTrim) + "\", obj." + thisClassParameter[0].Trim(charsToTrim) + ");\n"; 
+            apiCode += "conn.Open();\n" +
+                       "SqlDataReader reader = cmd.ExecuteReader();\n";
+            apiCode += "while (reader.Read())\n" +
+            "{\n";
+            for (int i = 0; i < thisclass.PrNumber; i++)
+            {
+                if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '1')
+                {
+                    apiCode += "objR." + thisClassParameter[i].Trim(charsToTrim) + " = Convert.ToInt32(reader[\"" + thisClassParameter[i].Trim(charsToTrim) + "\"]);\n";
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '2')
+                {
+                    apiCode += "objR." + thisClassParameter[i].Trim(charsToTrim) + " = reader[\"" + thisClassParameter[i].Trim(charsToTrim) + "\"].ToString(); \n";
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '2')
+                {
+                    apiCode += "objR." + thisClassParameter[i].Trim(charsToTrim) + " = Convert.ToInt32(reader[\"" + thisClassParameter[i].Trim(charsToTrim) + "\"]);\n";
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '2')
+                {
+                    apiCode += "objR." + thisClassParameter[i].Trim(charsToTrim) + " = Convert.ToInt32(reader[\"" + thisClassParameter[i].Trim(charsToTrim) + "\"]);\n";
+                }
+            }
+            apiCode += "\n}\n" +
+                    "conn.Close();\n" +
+                    "}\n" +
+                    "catch (Exception ex)\n" +
+                    "{\n" +
+                    thisclass.tableName + " objR" + " = new " + thisclass.tableName + "();\n" +
+                    "objR.Response = ex.Message;\n" +
+                    "}\n" +
+                    "retrun objR;\n" +
+                    "}\n";
+            apiCode = "--------------------- Get All Info With ID Api ----------------------------\n" + apiCode + "\n---------------------------------------------------------";
+            return apiCode;
+        }
+
+
+
+        public string makeSetProcedure(int clsIndex)
+        {
+            ClassGen thisclass = new ClassGen();
+            thisclass = allClass[clsIndex];
+
+            List<string> thisClassParameter = new List<string>();
+            char[] charsToTrim = { ' ', '1', '2', '3', '4' };
+            thisClassParameter.Add(thisclass.pr1n);
+            thisClassParameter.Add(thisclass.pr2n);
+            thisClassParameter.Add(thisclass.pr3n);
+            thisClassParameter.Add(thisclass.pr4n);
+            thisClassParameter.Add(thisclass.pr5n);
+            thisClassParameter.Add(thisclass.pr6n);
+            thisClassParameter.Add(thisclass.pr7n);
+            thisClassParameter.Add(thisclass.pr8n);
+            thisClassParameter.Add(thisclass.pr9n);
+            thisClassParameter.Add(thisclass.pr10n);
+            thisClassParameter.Add(thisclass.pr11n);
+            thisClassParameter.Add(thisclass.pr12n);
+            thisClassParameter.Add(thisclass.pr13n);
+            thisClassParameter.Add(thisclass.pr14n);
+            thisClassParameter.Add(thisclass.pr15n);
+            thisClassParameter.Add(thisclass.pr16n);
+            thisClassParameter.Add(thisclass.pr17n);
+            thisClassParameter.Add(thisclass.pr18n);
+            thisClassParameter.Add(thisclass.pr19n);
+            thisClassParameter.Add(thisclass.pr20n);
+            string getProCode = "create procedure set" + allClass[clsIndex].tableName + "\n";
+
+            for (int i = 0; i < thisclass.PrNumber; i++)
+            {
+                if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '1')
+                {
+                    if (i == thisclass.PrNumber - 1)
+                    {
+                        getProCode += "@" + thisClassParameter[i].Trim(charsToTrim) + " int" + "\n";
+                    }
+                    else
+                    {
+                        getProCode += "@" + thisClassParameter[i].Trim(charsToTrim) + " int" + ",\n";
+                    }
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '2')
+                {
+                    if (i == thisclass.PrNumber - 1)
+                    {
+                        getProCode += "@" + thisClassParameter[i].Trim(charsToTrim) + " nvarchar(50)" + "\n";
+                    }
+                    else
+                    {
+                        getProCode += "@" + thisClassParameter[i].Trim(charsToTrim) + " nvarchar(50)" + ",\n";
+                    }
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '3' || thisClassParameter[i][thisClassParameter[i].Length - 1] == '4')
+                {
+                    if (i == thisclass.PrNumber - 1)
+                    {
+                        getProCode += "@" + thisClassParameter[i] + " float" + "\n";
+                    }
+                    else
+                    {
+                        getProCode += "@" + thisClassParameter[i] + " float" + ",\n";
+                    }
+                }
+            }
+            getProCode += "as begin \n Insert Into " + thisclass.tableName + "(";
+            for (int i = 0; i < thisclass.PrNumber; i++)
+            {
+                if (i == thisclass.PrNumber - 1)
+                {
+                    getProCode += thisClassParameter[i].Trim(charsToTrim);
+                }
+                else
+                {
+                    getProCode += thisClassParameter[i].Trim(charsToTrim) + ", ";
+                }
+            }
+            getProCode += ")\n values (";
+            for (int i = 0; i < thisclass.PrNumber; i++)
+            {
+                if (i == thisclass.PrNumber - 1)
+                {
+                    getProCode += "@" + thisClassParameter[i].Trim(charsToTrim);
+                }
+                else
+                {
+                    getProCode += "@" + thisClassParameter[i].Trim(charsToTrim) + ", ";
+                }
+            }
+            getProCode += ")\nend;";
+            getProCode = "---------------------Set Info Procedure ----------------------------\n" + getProCode + "\n---------------------------------------------------------";
+            return getProCode;
         }
     }
 }
