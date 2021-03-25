@@ -3,6 +3,7 @@ using Flurl.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -25,8 +26,8 @@ namespace ApiGenerator
     public partial class ClassMaker : Page
     {
         List<string> tblItemList = new List<string>();
-        List<ClassGen> allClass = new List<ClassGen>();
-        List<ClassGen> allClassForCal = new List<ClassGen>();
+        ObservableCollection<ClassGen> allClass = new ObservableCollection<ClassGen>();
+        ObservableCollection<ClassGen> allClassForCal = new ObservableCollection<ClassGen>();
         public ClassMaker()
         {
             InitializeComponent();
@@ -34,9 +35,9 @@ namespace ApiGenerator
         }
         public async Task GetAllClass()
         {          
-            allClass = await "https://api.shikkhanobish.com/api/ApiMaker/getAPiMaker".GetJsonAsync<List<ClassGen>>();
-            clsList.ItemsSource = allClass;
+            allClass = await "https://api.shikkhanobish.com/api/ApiMaker/getAPiMaker".GetJsonAsync<ObservableCollection<ClassGen>>();
             allClassForCal = allClass;
+            clsList.ItemsSource = allClass;
         }
         public void getData()
         {
@@ -44,38 +45,50 @@ namespace ApiGenerator
         }
         private void clearnItemList_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
-
+        public async Task refresh()
+        {
+            allClass = await "https://api.shikkhanobish.com/api/ApiMaker/getAPiMaker".GetJsonAsync<ObservableCollection<ClassGen>>();
+            clsList.ItemsSource = null;
+            clsList.ItemsSource = allClass;
+        }
         private void AddTableItem_Click(object sender, RoutedEventArgs e)
         {
-           
-            string item = "";
-            if (!singleTableItemTextBox.Text.Contains(" "))
-            {
-                item = singleTableItemTextBox.Text;
-            }           
+           if(tblItemList.Count == 20)
+           {
+                return;
+           }
+           else
+           {
+                string item = "";
+                if (!singleTableItemTextBox.Text.Contains(" "))
+                {
+                    item = singleTableItemTextBox.Text;
+                }
 
-            if(intch.IsChecked == true)
-            {
-                item += " 1";                          
-            }
-            else if (stringch.IsChecked == true)
-            {
-                item += " 2";
-            }
-            else if (doublech.IsChecked == true)
-            {
-                item += " 3";
-            }
-            else if (floatch.IsChecked == true)
-            {
-                item += " 4";
-            }
-            tblItemList.Add(item);
+                if (intch.IsChecked == true)
+                {
+                    item += " 1";
+                }
+                else if (stringch.IsChecked == true)
+                {
+                    item += " 2";
+                }
+                else if (doublech.IsChecked == true)
+                {
+                    item += " 3";
+                }
+                else if (floatch.IsChecked == true)
+                {
+                    item += " 4";
+                }
+                tblItemList.Add(item);
 
-            TableElementList.ItemsSource = null;
-            TableElementList.ItemsSource = tblItemList;
+                TableElementList.ItemsSource = null;
+                TableElementList.ItemsSource = tblItemList;
+           }
+            
         }
 
        
@@ -112,19 +125,14 @@ namespace ApiGenerator
             });
             StringContent contentT = new StringContent(jsonDataT, Encoding.UTF8, "application/json");
             HttpResponseMessage responseT = await clientT.PostAsync(urlT, contentT).ConfigureAwait(false);
-            string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);           
+            string resultT = await responseT.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            lfSuck();
+            SetClass();
         }
-        public async Task lfSuck()
-        {           
-            await SetClass().ConfigureAwait(false);
-            clsList.ItemsSource = null;
-            getData();
-        }
+       
         public List<string> ConvertToServerList()
         {
             List<string> content = new List<string>();
@@ -137,20 +145,29 @@ namespace ApiGenerator
             for(int i = tblItemList.Count; i < 20; i++)
             {
                 content.Add("N/A");
-            }if (allClassForCal.Count != 0)
+            }
+            if (allClassForCal.Count != 0)
             {
                 int max = allClassForCal[0].ID;
                 for (int i = 0; i < allClassForCal.Count; i++)
                 {
-                    if (max > allClassForCal[i].ID)
+                    if (max < allClassForCal[i].ID)
                     {
                         max = allClassForCal[i].ID;
                     }
                 }
-                content.Add("" + max);
+                content.Add("" + (max+1));
             }
-            content.Add(""+0);
+            else
+            {
+                content.Add("" + 0);
+            }
             return content;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            refresh();
         }
     }
 }
