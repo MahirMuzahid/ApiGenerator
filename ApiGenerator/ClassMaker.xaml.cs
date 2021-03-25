@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -132,8 +133,7 @@ namespace ApiGenerator
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {           
             SetClass();
             rfslbl.Content = "Refresh Now";
         }
@@ -145,7 +145,7 @@ namespace ApiGenerator
             content.Add(clsName.Text);
             for(int i = 0; i < tblItemList.Count; i++)
             {
-                content.Add(tblItemList[0]);
+                content.Add(tblItemList[i]);
             }
             for(int i = tblItemList.Count; i < 20; i++)
             {
@@ -173,6 +173,100 @@ namespace ApiGenerator
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             refresh();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            //Genarate all code here
+
+            string path = @"D:\CodeGenerator\Auto Genareted Code/" + allClass[0].tableName+".txt";
+
+
+
+            string c_Code = makeClass(0);
+
+
+            File.WriteAllText(path, c_Code);
+
+            rfslbl.Content = "Code Genareted!!!";
+        }
+
+        public string makeClass(int clsIndex)
+        {
+            ClassGen thisclass = new ClassGen();
+            thisclass = allClass[clsIndex];
+            for (int i = 0; i < thisclass.PrNumber; i++)
+            {
+                if(i == 0)
+                {
+
+                }
+            }
+
+            List<string> thisClassParameter = new List<string>();
+            char[] charsToTrim = { ' ', '1', '2', '3','4'};
+            thisClassParameter.Add(thisclass.pr1n);
+            thisClassParameter.Add(thisclass.pr2n);
+            thisClassParameter.Add(thisclass.pr3n);
+            thisClassParameter.Add(thisclass.pr4n);
+            thisClassParameter.Add(thisclass.pr5n);
+            thisClassParameter.Add(thisclass.pr6n);
+            thisClassParameter.Add(thisclass.pr7n);
+            thisClassParameter.Add(thisclass.pr8n);
+            thisClassParameter.Add(thisclass.pr9n);
+            thisClassParameter.Add(thisclass.pr10n);
+            thisClassParameter.Add(thisclass.pr11n);
+            thisClassParameter.Add(thisclass.pr12n);
+            thisClassParameter.Add(thisclass.pr13n);
+            thisClassParameter.Add(thisclass.pr14n);
+            thisClassParameter.Add(thisclass.pr15n);
+            thisClassParameter.Add(thisclass.pr16n);
+            thisClassParameter.Add(thisclass.pr17n);
+            thisClassParameter.Add(thisclass.pr18n);
+            thisClassParameter.Add(thisclass.pr19n);
+            thisClassParameter.Add(thisclass.pr20n);
+
+            string classCode = "create table " + thisclass.tableName + "(\n";
+            for (int i = 0; i < thisclass.PrNumber; i++)
+            {
+                if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '1')
+                {                    
+                    if(i == thisclass.PrNumber -1)
+                    {
+                        classCode += thisClassParameter[i].Trim(charsToTrim) + " int" + "\n";
+                    }
+                    else
+                    {
+                        classCode += thisClassParameter[i].Trim(charsToTrim) + " int" + ",\n";
+                    }                   
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '2')
+                {
+                    if (i == thisclass.PrNumber - 1)
+                    {
+                        classCode += thisClassParameter[i].Trim(charsToTrim) + " nvarchar(50)" + "\n";
+                    }
+                    else
+                    {
+                        classCode += thisClassParameter[i].Trim(charsToTrim) + " nvarchar(50)" + ",\n";
+                    }
+                }
+                else if (thisClassParameter[i][thisClassParameter[i].Length - 1] == '3' || thisClassParameter[i][thisClassParameter[i].Length - 1] == '4')
+                {
+                    if (i == thisclass.PrNumber - 1)
+                    {
+                        classCode += thisClassParameter[i] + " float" + "\n";
+                    }
+                    else
+                    {
+                        classCode += thisClassParameter[i] + " float" + ",\n";
+                    }
+                }
+
+            }
+            classCode = "--------------------- Class Code ----------------------------\n"+ classCode + ");\n---------------------------------------------------------";
+
+            return classCode;
         }
     }
 }
