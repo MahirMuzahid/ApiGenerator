@@ -29,7 +29,10 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Class Name" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
             <TextBox x:Name="clsName" Grid.Column="1"  Margin="0,10,0,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -43,6 +46,9 @@
             <Button Content="Genaretor All Code" Grid.Column="7" Margin="0,10,0,10" BorderBrush="Transparent" Click="Button_Click_2"  />
             <Button Content="Refresh" Grid.Column="8" Margin="20,10,20,10" BorderBrush="Transparent" Background="#1ABC9C" Foreground="White" Click="Button_Click_1" />
             <Label x:Name="rfslbl"   Grid.Column="9" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+            <TextBox Grid.Column="10" Margin="20,10,20,10"/>
+            <Button Grid.Column="11"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Background="#E3E3E3">
@@ -254,13 +260,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Delete" Width="100">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Background="#50E02323"  FontSize="14"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                    
                     <GridViewColumn Header="" Width="2000" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

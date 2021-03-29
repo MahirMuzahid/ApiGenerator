@@ -46,7 +46,8 @@ namespace ApiGenerator
         }
         private void clearnItemList_Click(object sender, RoutedEventArgs e)
         {
-           
+            TableElementList.ItemsSource = null;
+            tblItemList.Clear();
         }
         public async Task refresh()
         {
@@ -177,14 +178,14 @@ namespace ApiGenerator
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            //Genarate all code here
+            for(int i = 0; i < allClass.Count; i++)
+            {
+                string path = @"D:\CodeGenerator\Auto Genareted Code/" + allClass[i].tableName + ".txt";
 
-            string path = @"D:\CodeGenerator\Auto Genareted Code/" + allClass[0].tableName+".txt";
+                string c_Code = makeSql(i) + "\n" + makeClass(i) + "\n" + makeGetProcedure(i) + "\n" + makeGetProcedureWithID(i) + "\n" + makeGetApi(i) + "\n" + makeGetApiWithID(i) + "\n" + makeSetProcedure(i);
 
-            string c_Code = makeSql(0) + "\n" + makeClass(0) + "\n" + makeGetProcedure(0)+ "\n" + makeGetProcedureWithID(0) + "\n" + makeGetApi(0) + "\n" + makeGetApiWithID(0) + "\n" + makeSetProcedure(0);
-
-            File.WriteAllText(path, c_Code);
-
+                File.WriteAllText(path, c_Code);
+            }
             rfslbl.Content = "Code Genareted!!!";
         }
         public string makeClass(int clsIndex)
@@ -623,6 +624,5 @@ namespace ApiGenerator
             return getProCode;
         }
 
-        
     }
 }
