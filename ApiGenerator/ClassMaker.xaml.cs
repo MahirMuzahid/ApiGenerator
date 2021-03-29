@@ -186,6 +186,7 @@ namespace ApiGenerator
 
                 File.WriteAllText(path, c_Code);
             }
+            //gg
             rfslbl.Content = "Code Genareted!!!";
         }
         public string makeClass(int clsIndex)
