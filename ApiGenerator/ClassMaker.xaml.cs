@@ -52,6 +52,7 @@ namespace ApiGenerator
         public async Task refresh()
         {
             allClass = await "https://api.shikkhanobish.com/api/ApiMaker/getAPiMaker".GetJsonAsync<ObservableCollection<ClassGen>>();
+            allClassForCal = allClass;
             clsList.ItemsSource = null;
             clsList.ItemsSource = allClass;
             rfslbl.Content = "";

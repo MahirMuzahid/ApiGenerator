@@ -93,10 +93,10 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Table Name" Width="100">
+                    <GridViewColumn Header="Table Name" Width="300">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding tableName}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="100" FontSize="14" />
+                                <TextBlock Text="{Binding tableName}" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Bottom"  Width="300" FontSize="14" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
